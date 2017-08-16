@@ -2,11 +2,6 @@ variable "resource_group" {
   description = "The name of the resource group in which to create the virtual network."
 }
 
-variable "rg_prefix" {
-  description = "The shortened abbreviation to represent your resource group that will go on the front of some resources."
-  default     = "rg"
-}
-
 variable "hostname" {
   description = "VM name referenced also in storage-related names."
 }
@@ -27,12 +22,17 @@ variable "virtual_network_name" {
 
 variable "address_space" {
   description = "The address space that is used by the virtual network. You can supply more than one address space. Changing this forces a new resource to be created."
-  default     = "10.0.0.0/16"
+  default     = "10.254.0.0/16"
 }
 
 variable "subnet_prefix" {
   description = "The address prefix to use for the subnet."
-  default     = "10.0.10.0/24"
+  default     = "10.254.0.0/24"
+}
+
+variable "subnet2_prefix" {
+  description = "The address prefix to use for the subnet."
+  default     = "10.254.2.0/24"
 }
 
 variable "storage_account_type" {
