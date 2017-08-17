@@ -34,6 +34,16 @@ resource "azurerm_subnet" "subnet2" {
     address_prefix       = "${var.subnet2_prefix}"
 }
 
+
+# Create a public IP
+resource "azurerm_public_ip" "pip" {
+    name                         = "${azurerm_resource_group.rg.name}-ip"
+    location                     = "${var.location}"
+    resource_group_name          = "${azurerm_resource_group.rg.name}"
+    public_ip_address_allocation = "Dynamic"
+    #domain_name_label            = "${var.dns_name}"
+}
+
     # Create an application gateway
 resource "azurerm_application_gateway" "network" {
     name                = "${azurerm_virtual_network.vnet.name}"
@@ -95,17 +105,7 @@ resource "azurerm_network_interface" "nic" {
         name                          = "${azurerm_resource_group.rg.name}-ipconfig"
         subnet_id                     = "${azurerm_subnet.subnet2.id}"
         private_ip_address_allocation = "Dynamic"
-        #public_ip_address_id          = "${azurerm_public_ip.pip.id}"
     }
-}
-
-# Create a public IP
-resource "azurerm_public_ip" "pip" {
-    name                         = "${azurerm_resource_group.rg.name}-ip"
-    location                     = "${var.location}"
-    resource_group_name          = "${azurerm_resource_group.rg.name}"
-    public_ip_address_allocation = "Dynamic"
-    domain_name_label            = "${var.dns_name}"
 }
 
 # Create Storage Account
@@ -173,3 +173,4 @@ resource "azurerm_virtual_machine" "vm" {
         storage_uri = "${azurerm_storage_account.stor.primary_blob_endpoint}"
     }
 }
+
