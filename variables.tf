@@ -1,6 +1,6 @@
 variable "resource_group" {
   description = "The name of the resource group in which to create the virtual network."
-  default = "migolfi-rg"
+  default = "migolfi-rg-2"
 }
 
 variable "hostname" {
@@ -68,16 +68,22 @@ variable "image_version" {
   default     = "latest"
 }
 
-variable "admin_username" {
+variable "username" {
   description = "administrator user name"
   default     = "vmadmin"
 }
 
-variable "admin_password" {
+variable "password" {
   description = "administrator password (recommended to disable password auth)"
   default = "C0c0nut1234!"
-<<<<<<< HEAD
 }
-=======
+
+variable "private_key_path" {
+  description = "Path to the private ssh key used to connect to the machine within the gateway."
+  default = "/home/ubuntu/.ssh/id_rsa"
 }
->>>>>>> 2a3971185bcb13621a9a7c9415bc77e3fedd06d9
+
+variable "public_key_path" {
+  description = "Path to your SSH Public Key"
+  default = "/home/ubuntu/.ssh/id_rsa.pub"
+}

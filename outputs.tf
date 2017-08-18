@@ -1,11 +1,15 @@
-output "hostname" {
-  value = "${var.hostname}"
+output "Bastion_SSH" {
+  value = "ssh ${var.username}@${azurerm_public_ip.bastion_pip.fqdn}"
 }
 
-output "vm_fqdn" {
-  value = "${azurerm_public_ip.pip.fqdn}"
+output "Internal_VM_SSH" {
+  value = "ssh ${var.username}@${azurerm_network_interface.nic.*.private_ip_address}"
 }
 
-output "ssh_command" {
-  value = "ssh ${var.admin_username}@${azurerm_public_ip.pip.fqdn}"
+output "Gateway_FQDN" {
+  value = "http://${azurerm_public_ip.pip.fqdn}"
+}
+
+output "Message" {
+  value = "Yeaaaa"
 }
