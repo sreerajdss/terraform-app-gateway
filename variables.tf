@@ -16,17 +16,14 @@ variable "tenant_id" {
 
 variable "resource_group" {
 	description = "The name of the resource group in which to create the virtual network."
-	default = "migolfi-rg-2"
 }
 
 variable "hostname" {
 	description = "VM name referenced also in storage-related names."
-	default = "migolfitest"
 }
 
 variable "dns_name" {
 	description = " Label for the Domain Name. Will be used to make up the FQDN. If a domain name label is specified, an A DNS record is created for the public IP in the Microsoft Azure DNS system."
-	default = "migolfitest"
 }
 
 variable "location" {
@@ -91,7 +88,6 @@ variable "username" {
 
 variable "password" {
 	description = "administrator password (recommended to disable password auth)"
-	default = "C0c0nut1234!"
 }
 
 variable "private_key_path" {

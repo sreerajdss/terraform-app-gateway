@@ -32,6 +32,13 @@ The following diagram shows the high level deployment architecture:
 
 In order to use this sample, we recommend creating SSH keys to secure both the Linux VM and the Bastion Host.  The SSH keys need to be located in the same machine where Terraform is executed. Run `ssh-keygen` to generate the keys and point the variables: `public_key_path` and `private_key_path` to the appropriate public and private key files.
 
+### Running the Solution
+
+```bash
+$ terraform init && terraform apply
+# Enter deployment variables in the prompt
+```
+
 ## Terraform Files
 
 ### main.tf
