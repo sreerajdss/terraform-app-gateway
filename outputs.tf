@@ -9,7 +9,3 @@ output "Internal_VM_SSH" {
 output "Gateway_FQDN" {
   value = "http://${azurerm_public_ip.pip.fqdn}"
 }
-
-output "Message" {
-  value = "Yeaaaa"
-}
