@@ -24,13 +24,6 @@ resource "azurerm_subnet" "subnet" {
     address_prefix       = "${var.subnet_prefix}"
 }
 
-resource "azurerm_subnet" "subnet2" {
-    name                 = "${azurerm_resource_group.rg.name}-subnet2"
-    virtual_network_name = "${azurerm_virtual_network.vnet.name}"
-    resource_group_name  = "${azurerm_resource_group.rg.name}"
-    address_prefix       = "${var.subnet2_prefix}"
-}
-
 resource "azurerm_public_ip" "pip" {
     name                         = "${azurerm_resource_group.rg.name}-ip"
     location                     = "${azurerm_resource_group.rg.location}"
@@ -92,7 +85,7 @@ resource "azurerm_network_interface" "nic" {
 
     ip_configuration {
         name                          = "${azurerm_resource_group.rg.name}-ipconfig"
-        subnet_id                     = "${azurerm_subnet.subnet2.id}"
+        subnet_id                     = "${azurerm_subnet.subnet.id}"
         private_ip_address_allocation = "Dynamic"
     }
 }
@@ -218,7 +211,7 @@ resource "azurerm_network_interface" "bastion_nic" {
 
     ip_configuration {
         name                          = "${azurerm_resource_group.rg.name}-bastion-ipconfig"
-        subnet_id                     = "${azurerm_subnet.subnet2.id}"
+        subnet_id                     = "${azurerm_subnet.subnet.id}"
         private_ip_address_allocation = "Dynamic"
         public_ip_address_id          = "${azurerm_public_ip.bastion_pip.id}"
     }
