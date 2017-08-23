@@ -42,7 +42,7 @@ $ terraform init && terraform apply
 
 ### Connecting to the Machine
 
-Create a file `~/.ssh/config` and paste the following config. Then use `ssh vm1` from the Terraform executor machine to ssh into the private network machine. The machine must have the same private and public key pair used to create the machines.
+Create a file `~/.ssh/config` and paste the following config. Run the command `ssh vm1` from the Terraform executor machine to ssh into the private network machine. The machine must have the same private and public key pair used to create the machines.
 
 ```
 Host bastion
@@ -72,7 +72,7 @@ Terraform requires the parameters `client_id`, `client_secret`, `subscription_id
 Please go [here](https://www.terraform.io/docs/providers/azurerm/) for full instructions on how to create this to populate your `provider` block.
 
 | Variable      | Description    | Default |
-| ------------- |:--------------:|---------|
+| ------------- |--------------|---------|
 |subscription_id	|The subscription to create the deployment with.	||
 |client_id	|The client ID of the service account (principal).	||
 |client_secret	|The client secret of the service account (principal).	||
@@ -92,6 +92,7 @@ Please go [here](https://www.terraform.io/docs/providers/azurerm/) for full inst
 |image_sku	|image sku to apply (az vm image list)	|16.04-LTS|
 |image_version	|version of the image to apply (az vm image list)	|latest|
 |username	|administrator user name	|ubuntu|
+|password	|administrator password (password login is disabled, this is only used for root)	|C0c0nut1234!|
 |private_key_path	|Path to the private ssh key used to connect to the machine within the gateway.	|/home/ubuntu/.ssh/id_rsa|
 |public_key_path	|Path to your SSH Public Key	|/home/ubuntu/.ssh/id_rsa.pub|
 
