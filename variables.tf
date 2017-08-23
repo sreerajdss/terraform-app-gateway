@@ -51,11 +51,6 @@ variable "subnet2_prefix" {
 	default     = "10.254.1.0/24"
 }
 
-variable "storage_account_type" {
-	description = "Defines the type of storage account to be created. Valid options are Standard_LRS, Standard_ZRS, Standard_GRS, Standard_RAGRS, Premium_LRS. Changing this is sometimes valid - see the Azure documentation for more information on which types of accounts can be converted into other types."
-	default     = "Standard_LRS"
-}
-
 variable "vm_size" {
 	description = "Specifies the size of the virtual machine."
 	default     = "Standard_A0"
@@ -87,7 +82,8 @@ variable "username" {
 }
 
 variable "password" {
-	description = "administrator password (recommended to disable password auth)"
+	description = "administrator password"
+	default		= "C0c0nut1234!"
 }
 
 variable "private_key_path" {
