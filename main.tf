@@ -24,6 +24,13 @@ resource "azurerm_subnet" "subnet" {
     address_prefix       = "${var.subnet_prefix}"
 }
 
+resource "azurerm_subnet" "subnet2" {
+    name                 = "${azurerm_resource_group.rg.name}-subnet2"
+    virtual_network_name = "${azurerm_virtual_network.vnet.name}"
+    resource_group_name  = "${azurerm_resource_group.rg.name}"
+    address_prefix       = "${var.subnet2_prefix}"
+}
+
 resource "azurerm_public_ip" "pip" {
     name                         = "${azurerm_resource_group.rg.name}-ip"
     location                     = "${azurerm_resource_group.rg.location}"
@@ -85,25 +92,10 @@ resource "azurerm_network_interface" "nic" {
 
     ip_configuration {
         name                          = "${azurerm_resource_group.rg.name}-ipconfig"
-        subnet_id                     = "${azurerm_subnet.subnet.id}"
-        private_ip_address_allocation = "Dynamic"
+        subnet_id                     = "${azurerm_subnet.subnet2.id}"
+        private_ip_address_allocation = "Static"
+        private_ip_address            = "10.254.1.4"
     }
-}
-
-resource "azurerm_storage_account" "stor" {
-    name                = "${var.dns_name}stor"
-    location            = "${azurerm_resource_group.rg.location}"
-    resource_group_name = "${azurerm_resource_group.rg.name}"
-    account_type        = "${var.storage_account_type}"
-}
-
-resource "azurerm_managed_disk" "datadisk" {
-    name                 = "${var.hostname}-datadisk"
-    location             = "${azurerm_resource_group.rg.location}"
-    resource_group_name  = "${azurerm_resource_group.rg.name}"
-    storage_account_type = "Standard_LRS"
-    create_option        = "Empty"
-    disk_size_gb         = "1023"
 }
 
 #
@@ -140,15 +132,6 @@ resource "azurerm_virtual_machine" "vm" {
         create_option     = "FromImage"
     }
 
-    storage_data_disk {
-        name              = "${var.hostname}-datadisk"
-        managed_disk_id   = "${azurerm_managed_disk.datadisk.id}"
-        managed_disk_type = "Standard_LRS"
-        disk_size_gb      = "1023"
-        create_option     = "Attach"
-        lun               = 0
-    }
-
     os_profile {
         computer_name  = "${var.hostname}"
         admin_username = "${var.username}"
@@ -163,11 +146,6 @@ resource "azurerm_virtual_machine" "vm" {
         }
     }
 
-    boot_diagnostics {
-        enabled     = true
-        storage_uri = "${azurerm_storage_account.stor.primary_blob_endpoint}"
-    }
-
     provisioner "remote-exec" {
         inline = ["sudo apt-get update && sudo apt-get install nginx -y"]
     }
@@ -180,7 +158,7 @@ resource "azurerm_public_ip" "bastion_pip" {
     name                         = "${azurerm_resource_group.rg.name}-bastion-pip"
     resource_group_name          = "${azurerm_resource_group.rg.name}"
     location                     = "${azurerm_resource_group.rg.location}"
-    public_ip_address_allocation = "Static"
+    public_ip_address_allocation = "Dynamic"
     domain_name_label            = "${azurerm_resource_group.rg.name}-bastion"
 }
 
@@ -211,8 +189,9 @@ resource "azurerm_network_interface" "bastion_nic" {
 
     ip_configuration {
         name                          = "${azurerm_resource_group.rg.name}-bastion-ipconfig"
-        subnet_id                     = "${azurerm_subnet.subnet.id}"
-        private_ip_address_allocation = "Dynamic"
+        subnet_id                     = "${azurerm_subnet.subnet2.id}"
+        private_ip_address_allocation = "Static"
+        private_ip_address            = "10.254.1.5"
         public_ip_address_id          = "${azurerm_public_ip.bastion_pip.id}"
     }
 }
