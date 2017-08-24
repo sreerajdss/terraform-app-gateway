@@ -39,14 +39,13 @@ $ terraform init && terraform apply
 # Enter deployment variables in the prompt
 ```
 
-
 ### Connecting to the Machine
 
 Create a file `~/.ssh/config` and paste the following config. Run the command `ssh vm1` from the Terraform executor machine to ssh into the private network machine. The machine must have the same private and public key pair used to create the machines.
 
 ```
 Host bastion
-  Hostname ${var.hostname}-bastion.southcentralus.cloudapp.azure.com
+  Hostname ${var.hostname}-bastion.${var.location}.cloudapp.azure.com
   User ubuntu
   PasswordAuthentication no
   PubkeyAuthentication yes
