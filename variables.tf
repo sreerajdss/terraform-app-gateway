@@ -36,21 +36,6 @@ variable "virtual_network_name" {
 	default     = "vnet"
 }
 
-variable "address_space" {
-	description = "The address space that is used by the virtual network. You can supply more than one address space. Changing this forces a new resource to be created."
-	default     = "10.254.0.0/16"
-}
-
-variable "subnet_prefix" {
-	description = "The address prefix to use for the subnet."
-	default     = "10.254.0.0/24"
-}
-
-variable "subnet2_prefix" {
-	description = "The address prefix to use for the subnet."
-	default     = "10.254.1.0/24"
-}
-
 variable "vm_size" {
 	description = "Specifies the size of the virtual machine."
 	default     = "Standard_A0"

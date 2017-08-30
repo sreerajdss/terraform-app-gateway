@@ -13,7 +13,7 @@ resource "azurerm_resource_group" "rg" {
 resource "azurerm_virtual_network" "vnet" {
     name                = "${var.virtual_network_name}"
     location            = "${azurerm_resource_group.rg.location}"
-    address_space       = ["${var.address_space}"]
+    address_space       = ["10.254.0.0/16"]
     resource_group_name = "${azurerm_resource_group.rg.name}"
 }
 
@@ -21,14 +21,14 @@ resource "azurerm_subnet" "subnet" {
     name                 = "${azurerm_resource_group.rg.name}-subnet"
     virtual_network_name = "${azurerm_virtual_network.vnet.name}"
     resource_group_name  = "${azurerm_resource_group.rg.name}"
-    address_prefix       = "${var.subnet_prefix}"
+    address_prefix       = "10.254.0.0/24"
 }
 
 resource "azurerm_subnet" "subnet2" {
     name                 = "${azurerm_resource_group.rg.name}-subnet2"
     virtual_network_name = "${azurerm_virtual_network.vnet.name}"
     resource_group_name  = "${azurerm_resource_group.rg.name}"
-    address_prefix       = "${var.subnet2_prefix}"
+    address_prefix       = "10.254.1.0/24"
 }
 
 resource "azurerm_public_ip" "pip" {
