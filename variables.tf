@@ -82,7 +82,7 @@ variable "username" {
 }
 
 variable "password" {
-	description = "administrator password"
+	description = "administrator password (recommended to disable password auth)"
 	default		= "C0c0nut1234!"
 }
 
