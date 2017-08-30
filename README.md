@@ -24,7 +24,7 @@ In order to access the private subnet, we have deployed a Bastion Host (Jumpbox)
 
 The following diagram shows the high level deployment architecture: 
 
-![Azure Gateway deployment architecture](assets/Terraform-Azure-Gateway-Example.png)
+![Azure Gateway deployment architecture](assets/Terraform-Az-Gateway-Example.png)
 
 ## Instructions
 
